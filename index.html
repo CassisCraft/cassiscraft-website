@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CassisCraft | Minecraft Server</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #070b14;
+            color: white;
+        }
+
+        /* NAVBAR */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 18px 7%;
+
+            background: rgba(8, 13, 25, 0.95);
+            border-bottom: 1px solid #17243a;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            color: #38bdf8;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: #38bdf8;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 80vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            padding: 50px 20px;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #0c3150 0%,
+                    #0a1628 35%,
+                    #070b14 70%
+                );
+        }
+
+        .hero h1 {
+            font-size: 70px;
+            font-weight: 900;
+
+            color: #38bdf8;
+
+            text-shadow:
+                0 0 15px #0284c7,
+                0 0 40px rgba(14, 165, 233, 0.4);
+
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 21px;
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        .server-ip {
+            padding: 15px 25px;
+
+            background: #0d1626;
+
+            border: 1px solid #1d3b5a;
+            border-radius: 10px;
+
+            color: #e2e8f0;
+
+            font-weight: bold;
+
+            margin-bottom: 25px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .button {
+            display: inline-block;
+
+            padding: 14px 25px;
+
+            border-radius: 9px;
+
+            text-decoration: none;
+
+            color: white;
+
+            background: #0284c7;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            background: #0ea5e9;
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.25);
+        }
+
+        .discord {
+            background: #5865f2;
+        }
+
+        .discord:hover {
+            background: #4752c4;
+        }
+
+        /* SECTIONS */
+
+        section {
+            padding: 80px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+
+            font-size: 40px;
+
+            margin-bottom: 45px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+
+            color: #94a3b8;
+
+            margin-top: -25px;
+            margin-bottom: 40px;
+        }
+
+        /* STORE */
+
+        .products {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(240px, 1fr));
+
+            gap: 25px;
+
+            max-width: 1200px;
+
+            margin: auto;
+        }
+
+        .card {
+            background: #0d1422;
+
+            border: 1px solid #1b2a40;
+
+            border-radius: 16px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            transition: 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+
+            border-color: #38bdf8;
+
+            box-shadow:
+                0 10px 35px rgba(0, 0, 0, 0.35),
+                0 0 20px rgba(56, 189, 248, 0.08);
+        }
+
+        .card-icon {
+            font-size: 55px;
+
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            font-size: 25px;
+
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #94a3b8;
+
+            line-height: 1.5;
+
+            min-height: 50px;
+
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 24px;
+
+            font-weight: 900;
+
+            color: #38bdf8;
+
+            margin-bottom: 20px;
+        }
+
+        /* RAKKER */
+
+        .rakker {
+            border-color: #0284c7;
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(2, 132, 199, 0.10),
+                    #0d1422
+                );
+        }
+
+        .rakker:hover {
+            border-color: #38bdf8;
+        }
+
+        .rakker h3,
+        .rakker .price {
+            color: #38bdf8;
+        }
+
+        /* BUNDLES */
+
+        .bundle {
+            border-color: #39445a;
+        }
+
+        .bundle h3 {
+            color: #e2e8f0;
+        }
+
+        .bundle .price {
+            color: #fbbf24;
+        }
+
+        .bundle:hover {
+            border-color: #f59e0b;
+        }
+
+        /* DISCORD */
+
+        .discord-section {
+            background:
+                linear-gradient(
+                    180deg,
+                    #070b14,
+                    #0c1020
+                );
+
+            text-align: center;
+        }
+
+        .discord-section p {
+            color: #94a3b8;
+
+            margin-bottom: 25px;
+
+            font-size: 17px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+
+            padding: 30px;
+
+            background: #080d18;
+
+            border-top: 1px solid #17243a;
+
+            color: #64748b;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            header {
+                justify-content: center;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                min-height: 75vh;
+            }
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .button {
+                text-align: center;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATIE -->
+
+    <header>
+
+        <div class="logo">
+            CassisCraft
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#store">Store</a>
+            <a href="#discord">Discord</a>
+        </nav>
+
+    </header>
+
+
+    <!-- HOME -->
+
+    <section class="hero" id="home">
+
+        <h1>CassisCraft</h1>
+
+        <p>
+            Jouw avontuur begint hier.
+        </p>
+
+        <div class="server-ip">
+            🎮 play.cassiscraft.nl
+        </div>
+
+        <div class="buttons">
+
+            <a href="#store" class="button">
+                🛒 Bekijk Store
+            </a>
+
+            <a href="#discord" class="button discord">
+                💬 Discord
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- STORE -->
+
+    <section id="store">
+
+        <h2 class="section-title">
+            🛒 CassisCraft Store
+        </h2>
+
+        <p class="section-subtitle">
+            Koop keys en bundels voor jouw avontuur op CassisCraft.
+        </p>
+
+
+        <div class="products">
+
+
+            <!-- RAKKER CRATE -->
+
+            <div class="card rakker">
+
+                <div class="card-icon">
+                    💙
+                </div>
+
+                <h3>
+                    Rakker Crate
+                </h3>
+
+                <p>
+                    Open de Rakker Crate en maak kans op unieke Rakker rewards!
+                </p>
+
+                <div class="price">
+                    €1,90
+                </div>
+
+                <a href="#" class="button">
+                    🛒 Kopen
+                </a>
+
+            </div>
+
+
+            <!-- KLEINE BUNDEL -->
+
+            <div class="card bundle">
+
+                <div class="card-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Kleine Bundel
+                </h3>
+
+                <p>
+                    Een kleine bundel met Rakker Keys.
+                </p>
+
+                <div class="price">
+                    Binnenkort
+                </div>
+
+                <a href="#" class="button">
+                    Bekijken
+                </a>
+
+            </div>
+
+
+            <!-- MIDDEL BUNDEL -->
+
+            <div class="card bundle">
+
+                <div class="card-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Middel Bundel
+                </h3>
+
+                <p>
+                    Meer Rakker Keys en extra rewards.
+                </p>
+
+                <div class="price">
+                    Binnenkort
+                </div>
+
+                <a href="#" class="button">
+                    Bekijken
+                </a>
+
+            </div>
+
+
+            <!-- GROTE BUNDEL -->
+
+            <div class="card bundle">
+
+                <div class="card-icon">
+                    👑
+                </div>
+
+                <h3>
+                    Grote Bundel
+                </h3>
+
+                <p>
+                    De grootste bundel met extra keys en exclusieve rewards.
+                </p>
+
+                <div class="price">
+                    Binnenkort
+                </div>
+
+                <a href="#" class="button">
+                    Bekijken
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- DISCORD -->
+
+    <section class="discord-section" id="discord">
+
+        <h2 class="section-title">
+            💬 Onze Discord
+        </h2>
+
+        <p>
+            Kom gezellig bij onze Discord en blijf op de hoogte van CassisCraft!
+        </p>
+
+        <a href="#" class="button discord">
+            💬 Join Discord
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 CassisCraft — Alle rechten voorbehouden.
+
+    </footer>
+
+</body>
+</html>
