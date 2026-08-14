@@ -1,1 +1,565 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>CassisCraft | Minecraft Server</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #070b14;
+            color: white;
+        }
+
+        /* NAVBAR */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 18px 7%;
+
+            background: rgba(8, 13, 25, 0.95);
+            border-bottom: 1px solid #17243a;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            color: #38bdf8;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: #38bdf8;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 80vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            padding: 50px 20px;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #0c3150 0%,
+                    #0a1628 35%,
+                    #070b14 70%
+                );
+        }
+
+        .hero h1 {
+            font-size: 70px;
+            font-weight: 900;
+
+            color: #38bdf8;
+
+            text-shadow:
+                0 0 15px #0284c7,
+                0 0 40px rgba(14, 165, 233, 0.4);
+
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 21px;
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        .server-ip {
+            padding: 15px 25px;
+
+            background: #0d1626;
+
+            border: 1px solid #1d3b5a;
+            border-radius: 10px;
+
+            color: #e2e8f0;
+
+            font-weight: bold;
+
+            margin-bottom: 25px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .button {
+            display: inline-block;
+
+            padding: 14px 25px;
+
+            border-radius: 9px;
+
+            text-decoration: none;
+
+            color: white;
+
+            background: #0284c7;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            background: #0ea5e9;
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.25);
+        }
+
+        .discord {
+            background: #5865f2;
+        }
+
+        .discord:hover {
+            background: #4752c4;
+        }
+
+        /* SECTIONS */
+
+        section {
+            padding: 80px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+
+            font-size: 40px;
+
+            margin-bottom: 45px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+
+            color: #94a3b8;
+
+            margin-top: -25px;
+            margin-bottom: 40px;
+        }
+
+        /* STORE */
+
+        .products {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(240px, 1fr));
+
+            gap: 25px;
+
+            max-width: 1200px;
+
+            margin: auto;
+        }
+
+        .card {
+            background: #0d1422;
+
+            border: 1px solid #1b2a40;
+
+            border-radius: 16px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            transition: 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+
+            border-color: #38bdf8;
+
+            box-shadow:
+                0 10px 35px rgba(0, 0, 0, 0.35),
+                0 0 20px rgba(56, 189, 248, 0.08);
+        }
+
+        .card-icon {
+            font-size: 55px;
+
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            font-size: 25px;
+
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #94a3b8;
+
+            line-height: 1.5;
+
+            min-height: 50px;
+
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 24px;
+
+            font-weight: 900;
+
+            color: #38bdf8;
+
+            margin-bottom: 20px;
+        }
+
+        /* RAKKER */
+
+        .rakker {
+            border-color: #0284c7;
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(2, 132, 199, 0.10),
+                    #0d1422
+                );
+        }
+
+        .rakker:hover {
+            border-color: #38bdf8;
+        }
+
+        .rakker h3,
+        .rakker .price {
+            color: #38bdf8;
+        }
+
+        /* BUNDLES */
+
+        .bundle {
+            border-color: #39445a;
+        }
+
+        .bundle h3 {
+            color: #e2e8f0;
+        }
+
+        .bundle .price {
+            color: #fbbf24;
+        }
+
+        .bundle:hover {
+            border-color: #f59e0b;
+        }
+
+        /* DISCORD */
+
+        .discord-section {
+            background:
+                linear-gradient(
+                    180deg,
+                    #070b14,
+                    #0c1020
+                );
+
+            text-align: center;
+        }
+
+        .discord-section p {
+            color: #94a3b8;
+
+            margin-bottom: 25px;
+
+            font-size: 17px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+
+            padding: 30px;
+
+            background: #080d18;
+
+            border-top: 1px solid #17243a;
+
+            color: #64748b;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            header {
+                justify-content: center;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero {
+                min-height: 75vh;
+            }
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .button {
+                text-align: center;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+        }
+    
+        .cart-button{position:fixed;right:24px;bottom:24px;z-index:2000;border:0;border-radius:999px;padding:14px 20px;background:#38bdf8;color:#07111f;font-weight:900;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+        .cart-count{display:inline-flex;min-width:24px;height:24px;align-items:center;justify-content:center;margin-left:7px;padding:0 6px;border-radius:999px;background:#ef4444;color:#fff}
+        .modal{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.72);padding:25px;overflow-y:auto}
+        .modal.open{display:flex;align-items:center;justify-content:center}
+        .modal-box{width:min(620px,100%);background:#0d1422;border:1px solid #243752;border-radius:18px;padding:28px;box-shadow:0 20px 70px rgba(0,0,0,.55)}
+        .cart-item{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px 0;border-bottom:1px solid #1b2a40}
+        .quantity{display:flex;align-items:center;gap:8px}.quantity button{width:32px;height:32px;border:1px solid #334155;border-radius:8px;background:#111c2e;color:#fff;cursor:pointer}
+        .cart-total{display:flex;justify-content:space-between;margin:22px 0;font-size:22px;font-weight:900}
+        .form-grid{display:grid;gap:14px}.form-grid label{color:#cbd5e1;font-weight:700}.form-grid input{width:100%;margin-top:7px;padding:13px 14px;border-radius:10px;border:1px solid #334155;background:#080f1c;color:#fff;outline:none}
+        .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap}.secondary-button{padding:14px 20px;border-radius:9px;border:1px solid #334155;background:#111c2e;color:#fff;cursor:pointer;font-weight:800}
+        .notice{padding:12px 14px;border-radius:10px;background:rgba(56,189,248,.08);border:1px solid #1d4d6d;color:#cbd5e1;margin-bottom:16px;line-height:1.5}
+    
+</style>
+</head>
+
+<body>
+
+    <!-- NAVIGATIE -->
+
+    <header>
+
+        <div class="logo">
+            CassisCraft
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#store">Store</a>
+            <a href="#discord">Discord</a>
+        </nav>
+
+    </header>
+
+
+    <!-- HOME -->
+
+    <section class="hero" id="home">
+
+        <h1>CassisCraft</h1>
+
+        <p>
+            Jouw avontuur begint hier.
+        </p>
+
+        <div class="server-ip">
+            🎮 play.cassiscraft.nl
+        </div>
+
+        <div class="buttons">
+
+            <a href="#store" class="button">
+                🛒 Bekijk Store
+            </a>
+
+            <a href="#discord" class="button discord">
+                💬 Discord
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- STORE -->
+    <section id="store">
+        <h2 class="section-title">🛒 Server Store</h2>
+        <p class="section-subtitle">Welkom bij de officiële serverwinkel!</p>
+
+        <div class="products">
+
+            <div class="card">
+                <div class="card-icon">👶</div>
+                <h3>Ukkie Rank</h3>
+                <p>• 5 PV's<br>• /feed<br>• /back<br>• 5 Homes</p>
+                <div class="price">€3,00</div>
+                <button type="button" class="button" onclick="addToCart('Ukkie Rank', 3.00)">🛒 Kopen</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🧒</div>
+                <h3>Jochie Rank</h3>
+                <p>Bevat alles van Ukkie +<br>• 10 PV's<br>• 10 Homes<br>• /near<br>• /nick<br>• /repair<br>• /workbench<br>• /ptime<br>• /heal</p>
+                <div class="price">€5,00</div>
+                <button type="button" class="button" onclick="addToCart('Jochie Rank', 5.00)">🛒 Kopen</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">👨</div>
+                <h3>Mannetje Rank</h3>
+                <p>Bevat alles van Ukkie &amp; Jochie +<br>• 20 PV's<br>• 20 Homes<br>• /fly<br>• /pweather</p>
+                <div class="price">€12,50</div>
+                <button type="button" class="button" onclick="addToCart('Mannetje Rank', 12.50)">🛒 Kopen</button>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">✨</div>
+                <h3>Unlimited Sell Wand</h3>
+                <p>Unlimited Sell Wand<br>1,5× Money Multiplier</p>
+                <div class="price">€2,00</div>
+                <button type="button" class="button" onclick="addToCart('Unlimited Sell Wand', 2.00)">🛒 Kopen</button>
+            </div>
+
+            <div class="card rakker">
+                <div class="card-icon">🔑</div>
+                <h3>Rakker Key</h3>
+                <p>1× Rakker Key<br>Kans op exclusieve rewards</p>
+                <div class="price">€1,90</div>
+                <button type="button" class="button" onclick="addToCart('Rakker Key', 1.90)">🛒 Kopen</button>
+            </div>
+
+            <div class="card bundle">
+                <div class="card-icon">🪙</div>
+                <h3>Coins</h3>
+                <p>
+                    Kies je pakket hieronder.
+                </p>
+                <div class="price">Vanaf €1,00</div>
+                <div style="display:grid;gap:8px;">
+                    <button type="button" class="button" onclick="addToCart('1.000 Coins', 1.00)">1.000 Coins — €1,00</button>
+                    <button type="button" class="button" onclick="addToCart('2.100 Coins', 2.00)">2.100 Coins — €2,00</button>
+                    <button type="button" class="button" onclick="addToCart('3.200 Coins', 3.00)">3.200 Coins — €3,00</button>
+                    <button type="button" class="button" onclick="addToCart('4.400 Coins', 4.00)">4.400 Coins — €4,00</button>
+                    <button type="button" class="button" onclick="addToCart('5.500 Coins', 5.00)">5.500 Coins — €5,00</button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- DISCORD -->
+
+    <section class="discord-section" id="discord">
+
+        <h2 class="section-title">
+            💬 Onze Discord
+        </h2>
+
+        <p>
+            Kom gezellig bij onze Discord en blijf op de hoogte van CassisCraft!
+        </p>
+
+        <a href="#" class="button discord">
+            💬 Join Discord
+        </a>
+
+    </section>
+
+
+    
+    <button class="cart-button" type="button" onclick="openCart()">🛒 Winkelmandje <span id="cartCount" class="cart-count">0</span></button>
+    <div class="modal" id="cartModal">
+      <div class="modal-box">
+        <h2>🛒 Jouw winkelmandje</h2>
+        <div id="cartItems"></div>
+        <div class="cart-total"><span>Totaal</span><span id="cartTotal">€0,00</span></div>
+        <div class="modal-actions"><button class="secondary-button" onclick="closeModal('cartModal')">Sluiten</button><button class="button" onclick="openCheckout()">Aankoop doen</button></div>
+      </div>
+    </div>
+    <div class="modal" id="checkoutModal">
+      <div class="modal-box">
+        <h2>🧾 Bestelling plaatsen</h2>
+        <form id="checkoutForm" class="form-grid">
+          <label>Discord gebruikersnaam *<input id="discordUser" required></label>
+          <label>Minecraft naam *<input id="minecraftUser" required></label>
+          <label>Gmail / e-mailadres *<input id="email" type="email" required></label>
+          <div class="notice"><div id="checkoutItems"></div><strong>Totaal: <span id="checkoutTotal">€0,00</span></strong></div>
+          <div class="modal-actions"><button type="button" class="secondary-button" onclick="backToCart()">Terug</button><button class="button" type="submit">📨 Bestelling versturen</button></div>
+        </form>
+        <p id="orderStatus" style="margin-top:15px;"></p>
+      </div>
+    </div>
+    
+<!-- FOOTER -->
+
+    <footer>
+
+        © 2026 CassisCraft — Alle rechten voorbehouden.
+
+    </footer>
+
+
+    <script>
+      const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1537624613079748759/RNC92vc9oTlga0peHPhc8kkN8iiQSQGURygjWfWFKDJkQC94rQ-uneZX4_8Ynnkhz4Vt";
+      let cart=[];
+      const euro=n=>new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(n);
+      function addToCart(name,price){let x=cart.find(i=>i.name===name);x?x.quantity++:cart.push({name,price,quantity:1});updateCart();openCart();}
+      function changeQuantity(i,a){if(!cart[i])return;cart[i].quantity+=a;if(cart[i].quantity<=0)cart.splice(i,1);updateCart();}
+      function total(){return cart.reduce((s,i)=>s+i.price*i.quantity,0)}
+      function updateCart(){document.getElementById('cartCount').textContent=cart.reduce((s,i)=>s+i.quantity,0);document.getElementById('cartTotal').textContent=euro(total());document.getElementById('cartItems').innerHTML=cart.length?cart.map((i,n)=>`<div class="cart-item"><div><strong>${i.name}</strong><br><small>${euro(i.price)} per stuk</small></div><div class="quantity"><button onclick="changeQuantity(${n},-1)">−</button><strong>${i.quantity}</strong><button onclick="changeQuantity(${n},1)">+</button></div></div>`).join(''):'<div class="notice">Je winkelmandje is nog leeg.</div>';}
+      function openCart(){updateCart();document.getElementById('cartModal').classList.add('open')}
+      function closeModal(id){document.getElementById(id).classList.remove('open')}
+      function openCheckout(){if(!cart.length)return alert('Je winkelmandje is leeg.');closeModal('cartModal');document.getElementById('checkoutItems').innerHTML=cart.map(i=>`${i.quantity}× ${i.name} — ${euro(i.price*i.quantity)}`).join('<br>');document.getElementById('checkoutTotal').textContent=euro(total());document.getElementById('checkoutModal').classList.add('open')}
+      function backToCart(){closeModal('checkoutModal');openCart()}
+      document.getElementById('checkoutForm').addEventListener('submit',async e=>{e.preventDefault();const status=document.getElementById('orderStatus');status.textContent='Bestelling wordt verstuurd...';const order=cart.map(i=>`${i.quantity}x ${i.name} — ${euro(i.price*i.quantity)}`).join('\n');const payload={username:'CassisCraft Shop',embeds:[{title:'🛒 Nieuwe bestelling',color:37119,fields:[{name:'Discord',value:document.getElementById('discordUser').value,inline:true},{name:'Minecraft',value:document.getElementById('minecraftUser').value,inline:true},{name:'E-mail',value:document.getElementById('email').value,inline:false},{name:'Bestelling',value:order,inline:false},{name:'Totaal',value:euro(total()),inline:true}],timestamp:new Date().toISOString()}]};try{let r=await fetch(DISCORD_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});if(!r.ok)throw Error();status.textContent='✅ Bestelling verstuurd!';cart=[];updateCart();e.target.reset()}catch{status.textContent='❌ Versturen mislukt. Controleer de webhook.'}});
+      updateCart();
+    </script>
+    
+</body>
+</html>
