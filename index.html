@@ -548,7 +548,7 @@
 
     <script>
       // TODO: VUL HIER JE WORKER-URL IN (zie cloudflare-worker/README.md, stap 5)
-      const ORDER_API_URL = "https://cassiscraft-order-proxy.JOUW-NAAM.workers.dev";
+      const ORDER_API_URL = "https://autumn-boat-ba2e.chaoscraftmc100.workers.dev";
       let cart=[];
       const euro=n=>new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(n);
       function addToCart(name,price){let x=cart.find(i=>i.name===name);x?x.quantity++:cart.push({name,price,quantity:1});updateCart();openCart();}
