@@ -474,6 +474,38 @@
                 <button type="button" class="button" onclick="addToCart('Rakker Key', 1.90)">🛒 Kopen</button>
             </div>
 
+            <div class="card rakker">
+                <div class="card-icon">🗝️</div>
+                <h3>Tokkie Key</h3>
+                <p>1× Tokkie Key<br>Kans op exclusieve rewards</p>
+                <div class="price">€3,50</div>
+                <button type="button" class="button" onclick="addToCart('Tokkie Key', 3.50)">🛒 Kopen</button>
+            </div>
+
+            <div class="card bundle">
+                <div class="card-icon">📦</div>
+                <h3>Kleine Bundel</h3>
+                <p>6× Rakker Keys<br>1.500 Coins</p>
+                <div class="price">€10,00</div>
+                <button type="button" class="button" onclick="addToCart('Kleine Bundel', 10.00)">🛒 Kopen</button>
+            </div>
+
+            <div class="card bundle">
+                <div class="card-icon">📦</div>
+                <h3>Middel Bundel</h3>
+                <p>1× Tokkie Key<br>6× Rakker Keys<br>2.000 Coins</p>
+                <div class="price">€15,00</div>
+                <button type="button" class="button" onclick="addToCart('Middel Bundel', 15.00)">🛒 Kopen</button>
+            </div>
+
+            <div class="card bundle">
+                <div class="card-icon">👑</div>
+                <h3>Grote Bundel</h3>
+                <p>8× Rakker Keys<br>2× Tokkie Keys<br>1× Patser Key<br>2.000 Coins</p>
+                <div class="price">€25,00</div>
+                <button type="button" class="button" onclick="addToCart('Grote Bundel', 25.00)">🛒 Kopen</button>
+            </div>
+
             <div class="card bundle">
                 <div class="card-icon">🪙</div>
                 <h3>Coins</h3>
@@ -529,6 +561,7 @@
           <label>Discord gebruikersnaam *<input id="discordUser" required></label>
           <label>Minecraft naam *<input id="minecraftUser" required></label>
           <label>Gmail / e-mailadres *<input id="email" type="email" required></label>
+          <input id="website" name="website" type="text" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" aria-hidden="true">
           <div class="notice"><div id="checkoutItems"></div><strong>Totaal: <span id="checkoutTotal">€0,00</span></strong></div>
           <div class="modal-actions"><button type="button" class="secondary-button" onclick="backToCart()">Terug</button><button class="button" type="submit">📨 Bestelling versturen</button></div>
         </form>
@@ -546,7 +579,8 @@
 
 
     <script>
-      const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1537624613079748759/RNC92vc9oTlga0peHPhc8kkN8iiQSQGURygjWfWFKDJkQC94rQ-uneZX4_8Ynnkhz4Vt";
+      // TODO: VUL HIER JE WORKER-URL IN (zie cloudflare-worker/README.md, stap 5)
+      const ORDER_API_URL = "https://autumn-boat-ba2e.chaoscraftmc100.workers.dev";
       let cart=[];
       const euro=n=>new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(n);
       function addToCart(name,price){let x=cart.find(i=>i.name===name);x?x.quantity++:cart.push({name,price,quantity:1});updateCart();openCart();}
@@ -557,7 +591,32 @@
       function closeModal(id){document.getElementById(id).classList.remove('open')}
       function openCheckout(){if(!cart.length)return alert('Je winkelmandje is leeg.');closeModal('cartModal');document.getElementById('checkoutItems').innerHTML=cart.map(i=>`${i.quantity}× ${i.name} — ${euro(i.price*i.quantity)}`).join('<br>');document.getElementById('checkoutTotal').textContent=euro(total());document.getElementById('checkoutModal').classList.add('open')}
       function backToCart(){closeModal('checkoutModal');openCart()}
-      document.getElementById('checkoutForm').addEventListener('submit',async e=>{e.preventDefault();const status=document.getElementById('orderStatus');status.textContent='Bestelling wordt verstuurd...';const order=cart.map(i=>`${i.quantity}x ${i.name} — ${euro(i.price*i.quantity)}`).join('\n');const payload={username:'CassisCraft Shop',embeds:[{title:'🛒 Nieuwe bestelling',color:37119,fields:[{name:'Discord',value:document.getElementById('discordUser').value,inline:true},{name:'Minecraft',value:document.getElementById('minecraftUser').value,inline:true},{name:'E-mail',value:document.getElementById('email').value,inline:false},{name:'Bestelling',value:order,inline:false},{name:'Totaal',value:euro(total()),inline:true}],timestamp:new Date().toISOString()}]};try{let r=await fetch(DISCORD_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});if(!r.ok)throw Error();status.textContent='✅ Bestelling verstuurd!';cart=[];updateCart();e.target.reset()}catch{status.textContent='❌ Versturen mislukt. Controleer de webhook.'}});
+      document.getElementById('checkoutForm').addEventListener('submit',async e=>{
+        e.preventDefault();
+        const status=document.getElementById('orderStatus');
+        const submitBtn=e.target.querySelector('button[type="submit"]');
+        const order=cart.map(i=>`${i.quantity}x ${i.name} — ${euro(i.price*i.quantity)}`).join('\n');
+        const payload={
+          discordUser:document.getElementById('discordUser').value,
+          minecraftUser:document.getElementById('minecraftUser').value,
+          email:document.getElementById('email').value,
+          order:order,
+          total:euro(total()),
+          website:document.getElementById('website').value // honeypot, moet leeg blijven
+        };
+        submitBtn.disabled=true;
+        status.textContent='Bestelling wordt verstuurd...';
+        try{
+          let r=await fetch(ORDER_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+          if(!r.ok) throw new Error();
+          status.textContent='✅ Bestelling verstuurd! Check je Discord DMs of wacht op reactie van staff.';
+          cart=[];updateCart();e.target.reset();
+        }catch{
+          status.textContent='❌ Versturen mislukt. Probeer het later opnieuw of neem contact op via Discord.';
+        }finally{
+          submitBtn.disabled=false;
+        }
+      });
       updateCart();
     </script>
     
