@@ -16,11 +16,21 @@
 .hero>.tag,.hero>h1,.hero>p,.hero>.heroBtns{display:none!important}
 .hero>.stats{display:grid;position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:5;}
 @media(max-width:650px){.hero{min-height:620px}.hero>.stats{grid-template-columns:1fr;width:calc(100% - 24px);bottom:12px}}
+
+/* Final CassisCraft banner layout */
+.hero{min-height:700px;padding:0;width:100%;}
+.hero:before{background-size:cover;background-position:center center;}
+.hero:after{background:linear-gradient(180deg,rgba(3,8,15,.04) 0%,rgba(3,8,15,.04) 58%,rgba(3,8,15,.72) 100%);}
+.heroLogo{display:none!important}
+.hero>.tag,.hero>h1,.hero>p,.hero>.heroBtns{display:none!important}
+.hero>.stats{display:grid;position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:5;}
+@media(max-width:650px){.hero{min-height:620px}.hero>.stats{grid-template-columns:1fr;width:calc(100% - 24px);bottom:12px}}
 </style>
 </head>
 <body>
 <header class="nav"><div class="navin"><div class="brand"><span class="brandDot"></span>CassisCraft</div><nav class="navlinks"><a href="#store">Store</a><a href="#bundels">Bundels</a><a href="#community">Community</a></nav><button class="cart" onclick="openCart()">🛒 Winkelmandje <span class="count" id="cartCount">0</span></button></div></header>
 <section class="hero">
+
 <section class="stats">
 <div class="stat"><div class="statIcon">🎮</div><div><div class="statLabel">Minecraft online</div><div class="statValue" id="mcStatus">Laden...</div><div class="statAccent">Spelers online</div></div></div>
 <div class="stat"><div class="statIcon">👥</div><div><div class="statLabel">Discord leden</div><div class="statValue" id="discordMembers">Laden...</div><div class="statAccent">Leden</div></div></div>
