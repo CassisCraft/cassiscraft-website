@@ -1,0 +1,59 @@
+name: Apply CassisCraft banner layout
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix-banner:
+    if: ${{ !contains(github.event.head_commit.message, 'Apply CassisCraft banner layout') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fix banner layout
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          # Remove the extra/broken CassisCraft logo from the hero.
+          s = re.sub(r'\s*<img\s+class="heroLogo"[^>]*>', '', s, count=1)
+
+          # Remove the extra hero text/buttons: the uploaded banner already contains the branding.
+          s = re.sub(r'\s*<div class="tag">.*?</div>', '', s, count=1, flags=re.S)
+          s = re.sub(r'\s*<h1>Upgrade je <b>avontuur\.</b></h1>', '', s, count=1)
+          s = re.sub(r'\s*<p>Ranks, keys, coins en exclusieve bundels\. Alles voor jouw volgende upgrade op CassisCraft\.</p>', '', s, count=1)
+          s = re.sub(r'\s*<div class="heroBtns">.*?</div>', '', s, count=1, flags=re.S)
+
+          # Move the live stats into the banner, just above the hero closing tag.
+          m = re.search(r'\s*<section class="stats">.*?</section>', s, flags=re.S)
+          if m:
+              stats = m.group(0).strip()
+              s = s[:m.start()] + s[m.end():]
+              hero_end = s.find('</section>\n<main class="wrap">')
+              if hero_end != -1:
+                  s = s[:hero_end] + '\n' + stats + '\n' + s[hero_end:]
+
+          # Final visual tuning: full-width banner, no overlaid logo/text, stats anchored inside it.
+          css = '''\n/* Final CassisCraft banner layout */\n.hero{min-height:700px;padding:0;width:100%;}\n.hero:before{background-size:cover;background-position:center center;}\n.hero:after{background:linear-gradient(180deg,rgba(3,8,15,.04) 0%,rgba(3,8,15,.04) 58%,rgba(3,8,15,.72) 100%);}\n.heroLogo{display:none!important}\n.hero>.tag,.hero>h1,.hero>p,.hero>.heroBtns{display:none!important}\n.hero>.stats{display:grid;position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:5;}\n@media(max-width:650px){.hero{min-height:620px}.hero>.stats{grid-template-columns:1fr;width:calc(100% - 24px);bottom:12px}}\n'''
+          s = s.replace('</style>', css + '</style>', 1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit fix
+        run: |
+          git config user.name "CassisCraft Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Apply CassisCraft banner layout"
+          git push
