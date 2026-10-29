@@ -3,50 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080a0d">
+<meta name="theme-color" content="#0c1020">
 <title>CassisCraft | Server Regels</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@400;500;600;700;800&display=swap');
-:root{--bg:#0a0d0d;--lime:#c9fd65;--muted:#b0bcb0}
+:root{--bg:#0c1020;--lime:#cbb6ff;--muted:#b0bcb0}
 *,*:before,*:after{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;min-height:100vh;background:radial-gradient(circle at 10% 15%,#1b2919,transparent 29%),radial-gradient(circle at 90% 0%,#232019,transparent 38%),#0a0d0d;color:#f8f8f0;font:500 15px/1.6 'DM Sans',Inter,system-ui,sans-serif;overflow-x:hidden}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 10% 15%,#26264b,transparent 29%),radial-gradient(circle at 90% 0%,#232019,transparent 38%),#0c1020;color:#f8f8f0;font:500 15px/1.6 'DM Sans',Inter,system-ui,sans-serif;overflow-x:hidden}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.15;background:linear-gradient(#778b78 1px,transparent 1px),linear-gradient(90deg,#778b78 1px,transparent 1px);background-size:45px 45px;mask-image:linear-gradient(to bottom,#000,transparent 85%);z-index:-1}
 a{color:inherit}
 a:focus-visible{outline:3px solid var(--lime);outline-offset:4px}
-.nav{position:sticky;top:0;z-index:100;background:rgba(10,13,13,.93);backdrop-filter:blur(20px);border-bottom:1px solid #293629}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,13,13,.93);backdrop-filter:blur(20px);border-bottom:1px solid #303958}
 .navin{width:min(1280px,calc(100% - 72px));min-height:81px;margin:auto;display:flex;align-items:center;gap:35px}
 .brand{display:flex;align-items:center;gap:12px;text-transform:uppercase;font:900 30px 'Barlow Condensed',Impact,sans-serif;letter-spacing:1px;margin-right:auto}
-.brandDot{width:39px;height:39px;background:var(--lime);border:3px solid #182410;box-shadow:4px 4px 0 #749b38;clip-path:polygon(0 0,84% 0,100% 17%,100% 100%,16% 100%,0 83%);border-radius:0}
+.brandDot{width:39px;height:39px;background:var(--lime);border:3px solid #182410;box-shadow:4px 4px 0 #8d78de;clip-path:polygon(0 0,84% 0,100% 17%,100% 100%,16% 100%,0 83%);border-radius:0}
 .navlinks{display:flex;gap:30px;align-items:center}
 .navlinks a{text-decoration:none;color:#c1c8c0;letter-spacing:1.4px;text-transform:uppercase;font-size:11px;font-weight:900}
 .navlinks a:hover,.navlinks a[aria-current="page"]{color:var(--lime)}
 .hero{width:min(1250px,calc(100% - 48px));max-width:1250px;margin:0 auto;text-align:left;padding:98px 20px 65px;position:relative}
 .hero:after{content:"";position:absolute;right:9%;top:100px;width:180px;height:180px;border:24px solid rgba(201,253,101,.045);box-shadow:0 0 0 25px rgba(201,253,101,.025);border-radius:50%;pointer-events:none}
-.pill{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;background:#223322;border:1px solid #526949;border-radius:8px;color:var(--lime);text-transform:uppercase;font-size:10px;font-weight:900;letter-spacing:2px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;background:#28294d;border:1px solid #68618e;border-radius:8px;color:var(--lime);text-transform:uppercase;font-size:10px;font-weight:900;letter-spacing:2px}
 .hero h1{font:900 clamp(69px,10vw,128px)/.89 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;letter-spacing:0;margin:24px 0}
 .hero h1 span{color:var(--lime);text-shadow:none}
 .hero p{max-width:650px;color:#b1bfaf;font-size:16px;line-height:1.9;margin:0}
 .rules{width:min(1200px,calc(100% - 48px));max-width:1200px;margin:0 auto;padding:0 0 120px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
-.rule-card{position:relative;overflow:hidden;padding:34px;background:linear-gradient(150deg,#1a241c,#111715);border:1px solid #344434;border-radius:15px;transition:transform .25s,border-color .25s}
+.rule-card{position:relative;overflow:hidden;padding:34px;background:linear-gradient(150deg,#1b2440,#141b31);border:1px solid #3c4569;border-radius:15px;transition:transform .25s,border-color .25s}
 .rule-card:before{content:"";position:absolute;top:0;left:34px;right:34px;width:auto;height:3px;background:var(--lime);box-shadow:none}
-.rule-card:hover{transform:translateY(-4px);border-color:#87a960}
-.rule-card.welcome,.rule-card.punishments{background:linear-gradient(145deg,#252d21,#141a15);border-color:#557049}
+.rule-card:hover{transform:translateY(-4px);border-color:#b4a3f3}
+.rule-card.welcome,.rule-card.punishments{background:linear-gradient(145deg,#252d21,#141a15);border-color:#736aa4}
 .rule-card.welcome{grid-column:span 2}
 .rule-card.punishments{grid-column:span 2}
 .rule-head{display:flex;gap:15px;align-items:center;margin-bottom:21px}
-.rule-icon{display:grid;place-items:center;width:54px;height:54px;flex:none;border:1px solid #466047;border-radius:11px;background:#2a3a2a;font-size:25px}
+.rule-icon{display:grid;place-items:center;width:54px;height:54px;flex:none;border:1px solid #466047;border-radius:11px;background:#2b3056;font-size:25px}
 .rule-card h2{font:900 34px/1 'Barlow Condensed',Impact,sans-serif;letter-spacing:.2px;text-transform:uppercase;margin:0}
 .rule-list{margin:0;padding:0;list-style:none;display:grid;gap:11px}
 .rule-list li{color:#c2cfc0;position:relative;padding-left:24px;line-height:1.7;font-size:14px}
 .rule-list li:before{content:"✓";position:absolute;left:0;top:0;color:var(--lime);font-weight:900}
 .rule-card.punishments .rule-list li:before{content:"!";color:#ffd08a}
-.ending{max-width:1200px;margin:0 auto 80px;padding:46px;background:linear-gradient(120deg,#202d20,#161d16);border:1px solid #516746;border-radius:18px;text-align:left}
+.ending{max-width:1200px;margin:0 auto 80px;padding:46px;background:linear-gradient(120deg,#1d2945,#161d16);border:1px solid #69638e;border-radius:18px;text-align:left}
 .ending h2{font:900 48px 'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:0 0 9px;color:var(--lime)}
 .ending p{margin:0;max-width:740px;color:#b9c7b7;line-height:1.8}
-.footer{border-top:1px solid #2b382b;background:#0e130f;text-align:center;color:#8ea18a;padding:28px 15px;font-size:12px}
+.footer{border-top:1px solid #303a59;background:#11182b;text-align:center;color:#8ea18a;padding:28px 15px;font-size:12px}
 @media(max-width:760px){.navin{width:calc(100% - 30px);min-height:68px;gap:10px;flex-wrap:wrap;padding:12px 0}.brand{font-size:24px}.brandDot{width:30px;height:30px}.navlinks{gap:14px;flex-wrap:wrap}.navlinks a{font-size:10px;letter-spacing:0}.hero{width:calc(100% - 20px);padding:63px 8px 45px}.hero h1{font-size:clamp(58px,13vw,94px)}.hero:after{display:none}.rules{width:calc(100% - 28px);grid-template-columns:1fr;padding-bottom:65px}.rule-card.welcome,.rule-card.punishments{grid-column:auto}.rule-card{padding:25px}.rule-card h2{font-size:29px}.ending{margin:0 14px 55px;padding:29px}.ending h2{font-size:37px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+
+:root{--bg:#0c1020;--lime:#cbb6ff;--muted:#c1c8e3}
+body{background:radial-gradient(circle at 10% 15%,#2b2450,transparent 31%),radial-gradient(circle at 90% 0%,#203855,transparent 39%),#0c1020;color:#f7f5ff}
+body:before{background:linear-gradient(#7783bb 1px,transparent 1px),linear-gradient(90deg,#7783bb 1px,transparent 1px)}
+.nav{background:rgba(12,16,32,.92);border-color:#333c6a}.brandDot{background:linear-gradient(135deg,#d3bdff,#a9e6ff);border-color:#252444;box-shadow:4px 4px 0 #726ab5}
+.navlinks a:hover,.navlinks a[aria-current="page"]{color:#aee6ff}
+.pill{background:#302a54;border-color:#665aa2;color:#d6bdff}
+.hero h1 span{background:linear-gradient(110deg,#d4baff,#aae6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:#c4c8e4}
+.hero:after{border-color:rgba(197,179,255,.07);box-shadow:0 0 0 25px rgba(167,220,255,.025)}
+.rule-card{background:linear-gradient(150deg,#242947,#171e36);border-color:#414c78}
+.rule-card:before{background:linear-gradient(90deg,#d2b7ff,#a9e6ff)}
+.rule-card:hover{border-color:#988ce5;box-shadow:0 18px 50px rgba(93,94,197,.14)}
+.rule-card.welcome,.rule-card.punishments{background:linear-gradient(145deg,#302a52,#1c2540);border-color:#695d9f}
+.rule-icon{background:#302e56;border-color:#635d95}
+.rule-list li{color:#d0d4e9}
+.rule-list li:before{color:#bce4ff}
+.rule-card.punishments .rule-list li:before{color:#d4b9ff}
+.ending{background:linear-gradient(120deg,#302b54,#1e2a44);border-color:#635e9c}
+.ending h2{color:#cdbaff}.ending p{color:#c4cbe8}.footer{background:#11182c;border-color:#333e68;color:#aeb9da}
+
 </style>
 </head>
 <body>
