@@ -332,6 +332,15 @@ body{background:radial-gradient(ellipse at 48% 5%,#30235a70,transparent 32%),rad
 @media(max-width:560px){.hero,.heroInner{min-height:650px}.hero h1{font-size:clamp(47px,11.6vw,68px)}.heroText{font-size:15px}.heroOverline{font-size:9px;letter-spacing:1.1px}.cosmicOrb{width:150px;height:150px;opacity:.5}.primaryBtn{box-shadow:0 0 20px #a39fff40}}
 @media(prefers-reduced-motion:reduce){.hero:before,.announcement,.cosmicOrb,.cosmicStars,.communityArt,.heroCopy{animation:none!important}}
 
+
+/* Final CassisCraft banner layout */
+.hero{min-height:700px;padding:0;width:100%;}
+.hero:before{background-size:cover;background-position:center center;}
+.hero:after{background:linear-gradient(180deg,rgba(3,8,15,.04) 0%,rgba(3,8,15,.04) 58%,rgba(3,8,15,.72) 100%);}
+.heroLogo{display:none!important}
+.hero>.tag,.hero>h1,.hero>p,.hero>.heroBtns{display:none!important}
+.hero>.stats{display:grid;position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:5;}
+@media(max-width:650px){.hero{min-height:620px}.hero>.stats{grid-template-columns:1fr;width:calc(100% - 24px);bottom:12px}}
 </style>
 </head>
 <body>
